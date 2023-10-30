@@ -12,7 +12,6 @@ def time_to_input(code, keypad):
         index_key = keypad.index(value)
 
         if value == code[index - 1]:
-            prev_index = index_key
             continue
 
         if index_key in dic_values[prev_index]:
