@@ -1,18 +1,11 @@
-
-
-
 def time_to_input(code, keypad):
     result = 0
-
-    matrix = get_matrix_from_string(keypad)
-    dic_neighbors = get_dic_neighbors(matrix)
+    dic_neighbors = get_dic_neighbors(keypad)
 
     prev_key = code[0]
 
-    for index in range(1, len(code)):
-        key = code[index]
-
-        if key == code[index - 1]:
+    for key in code[1:]:
+        if key == prev_key:
             continue
 
         if key in dic_neighbors[prev_key]:
@@ -26,12 +19,13 @@ def time_to_input(code, keypad):
 def get_matrix_from_string(string):
     return [list(string[x:x+3]) for x in (0, 3, 6)]
 
-def get_dic_neighbors(matrix):
+def get_dic_neighbors(keypad):
+    matrix = get_matrix_from_string(keypad)
     dic = {}
-    for i in range(3):
-        for j in range(3):
-            key = matrix[i][j]
-            dic[key] = get_neighbors(i, j, matrix)
+    for row in range(3):
+        for col in range(3):
+            key = matrix[row][col]
+            dic[key] = get_neighbors(row, col, matrix)
     return dic
 
 def get_neighbors(row, col, matrix):
