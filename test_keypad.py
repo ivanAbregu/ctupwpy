@@ -17,7 +17,7 @@ def time_to_input(code, keypad):
     return result
 
 def get_matrix_from_string(string):
-    return [list(string[x:x+3]) for x in (0, 3, 6)]
+    return tuple(tuple(string[x:x+3]) for x in (0, 3, 6))
 
 def get_dic_neighbors(keypad):
     matrix = get_matrix_from_string(keypad)
@@ -29,11 +29,11 @@ def get_dic_neighbors(keypad):
     return dic
 
 def get_neighbors(row, col, matrix):
-    neighbors = []
+    neighbors = set()
     for i in range(row - 1, row + 2):
         if not (0 <= i < 3):
             continue
         for j in range(col - 1, col + 2):
             if 0 <= j < 3 and (i, j) != (row, col):
-                neighbors.append(matrix[i][j])
+                neighbors.add(matrix[i][j])
     return neighbors
